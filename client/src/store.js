@@ -10,10 +10,10 @@ const store = createStore(
 	combineReducers({
 		form: formReducer,
 		auth: authReducer,
-		protectedData: protectedDataReducer
+		protectedData: protectedDataReducer,
 	}),
 	composeEnhancers(
-		applyMiddleware(thunk)
+		applyMiddleware(thunk),
 	)
 );
 
