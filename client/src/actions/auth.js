@@ -32,6 +32,12 @@ export const authError = error => ({
 	error
 });
 
+export const SET_DIALOG = 'SET_DIALOG';
+export const setDialog = dialog => ({
+	type: SET_DIALOG,
+	dialog
+});
+
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
 const storeAuthInfo = (authToken, dispatch) => {

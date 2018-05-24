@@ -6,7 +6,7 @@ import HeaderBar from './header-bar';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
 import RegistrationPage from './registration-page';
-import {refreshAuthToken} from '../actions/auth';
+import {refreshAuthToken, clearAuth, setDialog} from '../actions/auth';
 
 export class App extends React.Component {
 
@@ -14,9 +14,11 @@ export class App extends React.Component {
 		if (!prevProps.loggedIn && this.props.loggedIn) {
 			// When we are logged in, refresh the auth token periodically
 			this.startPeriodicRefresh();
+			this.startSessionInterval();
 		} else if (prevProps.loggedIn && !this.props.loggedIn) {
 			// Stop refreshing when we log out
 			this.stopPeriodicRefresh();
+			this.stopSessionInterval();
 		}
 	}
 
@@ -35,14 +37,30 @@ export class App extends React.Component {
 		if (!this.refreshInterval) {
 			return;
 		}
-
 		clearInterval(this.refreshInterval);
+	}
+
+	startSessionInterval() {
+		if(this.props.loggedIn) {
+			this.stopSessionInterval();
+			this.sessionInterval = setInterval(() => {
+				this.props.dispatch(setDialog(true));
+				this.stopSessionInterval();
+			}, 4 * 60 * 1000 );
+
+		}
+	}
+
+	stopSessionInterval() {
+		if(this.sessionInterval) {
+			clearInterval(this.sessionInterval);
+		}
 	}
 
 	render() {
 		return (
-			<div className="app">
-				<HeaderBar />
+			<div className="app" onMouseMove={() => this.startSessionInterval()}>
+				<HeaderBar/>
 				<Route exact path="/" component={LandingPage} />
 				<Route exact path="/dashboard" component={Dashboard} />
 				<Route exact path="/register" component={RegistrationPage} />
