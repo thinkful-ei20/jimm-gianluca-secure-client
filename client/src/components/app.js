@@ -6,7 +6,7 @@ import HeaderBar from './header-bar';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
 import RegistrationPage from './registration-page';
-import {refreshAuthToken, clearAuth, setDialog} from '../actions/auth';
+import {refreshAuthToken, setDialog} from '../actions/auth';
 
 export class App extends React.Component {
 
