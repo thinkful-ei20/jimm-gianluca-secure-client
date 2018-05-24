@@ -59,7 +59,13 @@ export class App extends React.Component {
 
 	render() {
 		return (
-			<div className="app" onMouseMove={() => this.startSessionInterval()}>
+			<div className="app" onMouseMove={() => {
+					this.startSessionInterval();
+					console.log('mouse move');
+				}}
+				onTouchMove={() => {
+					this.startSessionInterval();
+					console.log('touched')}}>
 				<HeaderBar/>
 				<Route exact path="/" component={LandingPage} />
 				<Route exact path="/dashboard" component={Dashboard} />
