@@ -10,6 +10,7 @@ import {refreshAuthToken} from '../actions/auth';
 
 export class App extends React.Component {
 	componentDidUpdate(prevProps) {
+		//console.log('App - componentDidUpdate');
 		if (!prevProps.loggedIn && this.props.loggedIn) {
 			// When we are logged in, refresh the auth token periodically
 			this.startPeriodicRefresh();
